@@ -1,0 +1,49 @@
+{
+  "name": "go-mongo-crud",
+  "env": "dev",
+  "host": {
+    "address": "0.0.0.0",
+    "port": 9595
+  },
+  "database_local": {
+    "mongodb": {
+      "timeout": 5000,
+      "host": "localhost",
+      "port": "27017",
+      "dbname": "chatnews",
+      "user": "sahrul",
+      "password": "t3rs3r4h"
+    }
+  },
+  "database_dev": {
+    "mongodb": {
+      "timeout": 5000,
+      "host": "172.16.255.11",
+      "port": "27017",
+      "dbname": "kpi_dev",
+      "user": "chatnews",
+      "password": "chatnews2022!!"
+    }
+  },
+  "database_stag": {
+    "mongodb": {
+      "timeout": 5000,
+      "host": "172.16.255.11",
+      "port": "27017",
+      "dbname": "chatnews_staging",
+      "user": "chatnews",
+      "password": "chatnews2022!!"
+    }
+  },
+  "database_prod": {
+    "mongodb": {
+      "timeout": 5000,
+      "host": "172.16.255.11",
+      "port": "27017",
+      "dbname": "chatnews_prod",
+      "user": "chatnews",
+      "password": "chatnews2022!!"
+    }
+  }
+  
+}

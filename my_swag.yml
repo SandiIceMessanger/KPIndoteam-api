@@ -1,0 +1,2238 @@
+swagger: "2.0"
+info:
+  description: Ice Messanger Indochat - Chatnews API v2.0
+  version: 2.0.0
+  title: Chatnews API
+  # put the contact info for your development or API team
+  license:
+    name: go 1.16
+    url: https://go.dev/doc/go1.16
+
+# tags are used for organizing operations
+paths:
+  /api/v1/category/add:
+    post:
+      tags:
+        - Category
+      summary: create an item to categoy
+      operationId: addItemToCategory
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/category/list:
+    get:
+      tags:
+        - Category
+      summary: read category list
+      operationId: category item
+      description: |
+        You could find category list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  category:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "61d81a92f4b712d1d61e8db6"
+                        name:
+                          type: string
+                          example: "fill name on this"
+                        created_by:
+                          type: string
+                          example: "sandi"
+                        created_at:
+                          type: string
+                          example: "2022-01-07T10:48:50.997Z"
+                        updated_by:
+                          type: string
+                          example: null
+                        deleted_by:
+                          type: string
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/category/edit:
+    post:
+      tags:
+        - Category
+      summary: update an item from categoy
+      operationId: updateItemToCategory
+      description: update an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/category/delete:
+    post:
+      tags:
+        - Category
+      summary: delete an item from categoy
+      operationId: deleteItemToCategory
+      description: delete an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to delete category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/event/add:
+    post:
+      tags:
+        - Event
+      summary: create an event to categoy
+      operationId: addItemToEvent
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add event
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/event/list:
+    get:
+      tags:
+        - Event
+      summary: Read Event Playlist
+      operationId: event item
+      description: |
+        You could find event list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  global_playlist:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          example: "61dbd0170e9174dd2070b2f6"
+                        name: 
+                          example: "toddd"
+                        start_date: 
+                          type: string
+                          example: ""
+                        end_date: 
+                          type: string
+                          example: ""
+                        tags: 
+                          type: string
+                          example: ""
+                        endpoint: 
+                          type: string
+                          example: ""
+                        endpoint_detail: 
+                          type: string
+                          example: ""
+                        created_by: 
+                          type: string
+                          example: ""
+                        created_at: 
+                          type: string
+                          example: "2022-01-10T06:20:07.971Z"
+                        update_by: 
+                          type: string
+                          example: ""
+                        update_at: 
+                          type: string
+                          example: null
+                        deleted_by: 
+                          type: string
+                          example: ""
+                        deleted_at: 
+                          type: string
+                          example: null
+                        status: 
+                          type: string
+                          example: ""
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/event/edit:
+    post:
+      tags:
+        - Event
+      summary: update an item from event
+      operationId: updateItemToEvent
+      description: update an event to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add event
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/event/delete:
+    post:
+      tags:
+        - Event
+      summary: delete an item from event
+      operationId: deleteItemToEvent
+      description: delete an event to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: an id to delete event
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/global_playlist/add:
+    post:
+      tags:
+        - Global Playlist
+      summary: create an item to global playlist
+      operationId: addItemToGlobalPlaylist
+      description: Adds an global playlist to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add global playlist
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/global_playlist/list:
+    get:
+      tags:
+        - Global Playlist
+      summary: Read Global Playlist list
+      operationId: Global Playlist item
+      description: |
+        You could find event list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  event:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          example: "61dbd6772d95bede6235fca1"
+                        slide_show: 
+                          example:  ""
+                        sub_header:  
+                          example: ""
+                        trendings:  
+                          example: ""
+                        sticker_news:  
+                          example: ""
+                        created_by:  
+                          example: ""
+                        created_at:  
+                          example: "2022-01-10T06:47:19.486Z"
+                        update_by:  
+                          example: ""
+                        update_at:  
+                          example: null,
+                        deleted_by:  
+                          example: ""
+                        deleted_at:  
+                          example: null
+                        status:  
+                          example: ""
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/global_playlist/edit:
+    post:
+      tags:
+        - Global Playlist
+      summary: update an item from global playlist
+      operationId: updateItemToGlobalPlaylist
+      description: update an global playlist to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add global playlist
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/global_playlist/delete:
+    post:
+      tags:
+        - Global Playlist
+      summary: delete an item from global playlist
+      operationId: deleteItemToGlobalPlaylist
+      description: update an global playlist to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add global playlist
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/page/add:
+    post:
+      tags:
+        - Page
+      summary: create an item to categoy
+      operationId: addItemToPage
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/page/list:
+    get:
+      tags:
+        - Page
+      summary: Read page list
+      operationId: page item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  page:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dbe0c4c2ae4817eb0cefa6"
+                        name:  
+                          example: "test"
+                        logo:  
+                          example: ""
+                        image:  
+                          example: ""
+                        color:  
+                          example: ""
+                        content:  
+                          example: ""
+                        slug_url:  
+                          example: ""
+                        created_by:  
+                          example: ""
+                        created_at:  
+                          example: "2022-01-10T07:31:16.327Z"
+                        update_by:  
+                          example: ""
+                        update_at:  
+                          example: null
+                        deleted_by:  
+                          example: ""
+                        deleted_at:  
+                          example: null
+                        status:  
+                          example: ""
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/page/edit:
+    post:
+      tags:
+        - Page
+      summary: update an item from page
+      operationId: updateItemToPage
+      description: update an page to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add page
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/page/delete:
+    post:
+      tags:
+        - Page
+      summary: delete an item from page
+      operationId: deleteItemToPage
+      description: update an page to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add page
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/playlist_kanal/add:
+    post:
+      tags:
+        - Playlist Kanal
+      summary: create an item to categoy
+      operationId: addItemToPlaylistKanal
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/playlist_kanal/list:
+    get:
+      tags:
+        - Playlist Kanal
+      summary: Read Playlist Kanal list
+      operationId: Playlist Kanal item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  playlist_kanal:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dbe85e8329702d17ddad8c"
+                        category_id:  
+                          example: ""
+                        headlines:  
+                          example: ""
+                        trendings:  
+                          example: ""
+                        created_by:  
+                          example: ""
+                        created_at:  
+                          example: "2022-01-10T08:03:42.525Z"
+                        update_by:  
+                          example: ""
+                        update_at:  
+                          example: null
+                        deleted_by:  
+                          example: ""
+                        deleted_at:  
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/playlist_kanal/edit:
+    post:
+      tags:
+        - Playlist Kanal
+      summary: update an item from playlist kanal
+      operationId: updateItemToPlaylistKanal
+      description: update an playlist kanal to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/playlist_kanal/delete:
+    post:
+      tags:
+        - Playlist Kanal
+      summary: delete an item from playlist kanal
+      operationId: deleteItemToPlatlistKanal
+      description: delete an playlist kanal to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add playlist kanal
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/post/add:
+    post:
+      tags:
+        - Post
+      summary: create an item to categoy
+      operationId: addItemToPost
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/post/list:
+    get:
+      tags:
+        - Post 
+      summary: Read Post list
+      operationId: Post item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  post:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dcfb48cc7e14019b77dc27"
+                        title:  
+                          example: "keren sekali"
+                        link:  
+                          example: ""
+                        pubdate:   
+                          example: ""
+                        creator_id:   
+                          example: ""
+                        username:   
+                          example: ""
+                        description:   
+                          example: ""
+                        content:   
+                          example: ""
+                        except:   
+                          example: ""
+                        comment_status:   
+                          example: ""
+                        slug:   
+                          example: ""
+                        post_parent:   
+                          example: ""
+                        post_type:   
+                          example: ""
+                        category_id:   
+                          example: ""
+                        image_id:   
+                          example: ""
+                        views:   
+                          example: ""
+                        created_by:   
+                          example: ""
+                        created_at:   
+                          example: "2022-01-11T03:36:40.674Z"
+                        update_by:   
+                          example: ""
+                        update_at:   
+                          example: null
+                        deleted_by:   
+                          example: ""
+                        deleted_at:   
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/post/edit:
+    post:
+      tags:
+        - Post
+      summary: update an item from post
+      operationId: updateItemToPost
+      description: update an post to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add post
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/post/delete:
+    post:
+      tags:
+        - Post
+      summary: delete an item from categoy
+      operationId: deleteItemToPost
+      description: delete an post to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to delete post
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true  
+  /api/v1/post_comment/add:
+    post:
+      tags:
+        - Post Comment
+      summary: create an item to categoy
+      operationId: addItemToPostComment
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/post_comment/list:
+    get:
+      tags:
+        - Post Comment
+      summary: Read Post comment list
+      operationId: Post comment item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  post_comment:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dcfb48cc7e14019b77dc27"
+                        post_id:  
+                          example: ""
+                        comment:  
+                          example: ""
+                        parent_id:  
+                          example: ""
+                        created_by:   
+                          example: ""
+                        created_at:   
+                          example: "2022-01-11T03:36:40.674Z"
+                        update_by:   
+                          example: ""
+                        update_at:   
+                          example: null
+                        deleted_by:   
+                          example: ""
+                        deleted_at:   
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/post_comment/edit:
+    post:
+      tags:
+        - Post Comment
+      summary: update an item from categoy
+      operationId: updateItemToPostComment
+      description: update an post comment to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add post comment
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/post_comment/delete:
+    post:
+      tags:
+        - Post Comment
+      summary: delete an item from post comment
+      operationId: deleteItemToPostComment
+      description: delete an post comment to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add post commant
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/post_image/add:
+    post:
+      tags:
+        - Post Image
+      summary: create an item to categoy
+      operationId: addItemToPostImage
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/post_image/list:
+    get:
+      tags:
+        - Post Image
+      summary: Read Post image list
+      operationId: Post image item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  post_image:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dcfb48cc7e14019b77dc27"
+                        thumbnail:  
+                          example: ""
+                        small:  
+                          example: ""
+                        medium:  
+                          example: ""
+                        large:  
+                          example: ""
+                        created_by:   
+                          example: ""
+                        created_at:   
+                          example: "2022-01-11T03:36:40.674Z"
+                        update_by:   
+                          example: ""
+                        update_at:   
+                          example: null
+                        deleted_by:   
+                          example: ""
+                        deleted_at:   
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/post_image/edit:
+    post:
+      tags:
+        - Post Image
+      summary: update an item from categoy
+      operationId: updateItemToPostImage
+      description: update an post image to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add post image
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/post_image/delete:
+    post:
+      tags:
+        - Post Image
+      summary: delete an item from post image
+      operationId: deleteItemToPostImage
+      description: update an post image to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add post image
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/post_tag/add:
+    post:
+      tags:
+        - Post Tag
+      summary: create an item to categoy
+      operationId: addItemToPostTag
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/post_tag/list:
+    get:
+      tags:
+        - Post Tag
+      summary: Read Post tag list
+      operationId: Post tag item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  post_tag:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dcfb48cc7e14019b77dc27"
+                        post_id:  
+                          example: ""
+                        tag:  
+                          example: "tangio"
+                        created_by:   
+                          example: ""
+                        created_at:   
+                          example: "2022-01-11T03:36:40.674Z"
+                        update_by:   
+                          example: ""
+                        update_at:   
+                          example: null
+                        deleted_by:   
+                          example: ""
+                        deleted_at:   
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/post_tag/edit:
+    post:
+      tags:
+        - Post Tag
+      summary: update an item from categoy
+      operationId: updateItemToPostTag
+      description: update an post tag to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add post tag
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/post_tag/delete:
+    post:
+      tags:
+        - Post Tag
+      summary: delete an item from categoy
+      operationId: deleteItemToPostTag
+      description: update an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/role/add:
+    post:
+      tags:
+        - Role
+      summary: create an item to categoy
+      operationId: addItemToRole
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/role/list:
+    get:
+      tags:
+        - Role 
+      summary: Read Role list
+      operationId: Role item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  role:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dcfb48cc7e14019b77dc27"
+                        name:  
+                          example: "cong"
+                        created_by:   
+                          example: "todd"
+                        created_at:   
+                          example: "2022-01-11T03:36:40.674Z"
+                        update_by:   
+                          example: ""
+                        update_at:   
+                          example: null
+                        deleted_by:   
+                          example: ""
+                        deleted_at:   
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/role/edit:
+    post:
+      tags:
+        - Role
+      summary: update an item from categoy
+      operationId: updateItemToRole
+      description: update an role to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add role
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/role/delete:
+    post:
+      tags:
+        - Role
+      summary: delete an item from categoy
+      operationId: deleteItemToRole
+      description: delete an role to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add role
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/theme/add:
+    post:
+      tags:
+        - Theme
+      summary: create an item to categoy
+      operationId: addItemToTheme
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/theme/list:
+    get:
+      tags:
+        - Theme 
+      summary: Read theme list
+      operationId: theme item
+      description: |
+        You could find page list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  theme:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dcfb48cc7e14019b77dc27"
+                        name:  
+                          example: "nasi"
+                        start_date:  
+                          example: ""
+                        end_date:  
+                          example: ""
+                        tags:  
+                          example: ""
+                        header_icon:  
+                          example: ""
+                        header_icon_mobile:  
+                          example: ""
+                        image_left:  
+                          example: ""
+                        image_right:  
+                          example: ""
+                        created_by:   
+                          example: ""
+                        created_at:   
+                          example: "2022-01-11T03:36:40.674Z"
+                        update_by:   
+                          example: ""
+                        update_at:   
+                          example: null
+                        deleted_by:   
+                          example: ""
+                        deleted_at:   
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/theme/edit:
+    post:
+      tags:
+        - Theme
+      summary: update an item from categoy
+      operationId: updateItemToTheme
+      description: update an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/theme/delete:
+    post:
+      tags:
+        - Theme
+      summary: delete an item from categoy
+      operationId: deleteItemToTheme
+      description: update an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/user/add:
+    post:
+      tags:
+        - User
+      summary: create an item to categoy
+      operationId: addItemToUser
+      description: Adds an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              message: 
+                example: "Internal Server Error"
+  /api/v1/user/list:
+    get:
+      tags:
+        - User 
+      summary: Read User list
+      operationId: User item
+      description: |
+        You could find page User with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  user:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:  
+                          example: "61dcfb48cc7e14019b77dc27"
+                        role_id:  
+                          example: 0,
+                        username:  
+                          example: ""
+                        password:  
+                          example: ""
+                        name:  
+                          example: "cong"
+                        email:  
+                          example: ""
+                        created_by:   
+                          example: ""
+                        created_at:   
+                          example: "2022-01-11T03:36:40.674Z"
+                        update_by:   
+                          example: ""
+                        update_at:   
+                          example: null
+                        deleted_by:   
+                          example: ""
+                        deleted_at:   
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/user/edit:
+    post:
+      tags:
+        - User
+      summary: update an item from categoy
+      operationId: updateItemToUser
+      description: update an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+              name:
+                example: "todd"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+  /api/v1/user/delete:
+    post:
+      tags:
+        - User
+      summary: delete an item from categoy
+      operationId: deleteItemToUser
+      description: update an category to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: items to add category
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                example: "61d80b5a02c9a8a8b83073b0"
+      responses:
+        201:
+          description: item created
+          schema:
+            type: object
+            properties:
+              data:
+                example: true
+              message:
+                example: "success"
+              success:
+                example: true
+          
+          

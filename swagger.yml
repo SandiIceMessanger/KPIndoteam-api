@@ -1,0 +1,1185 @@
+swagger: "2.0"
+info:
+  description: Retail Store Ecommerce API
+  version: "2.0"
+  title: Retail Store API
+  # put the contact info for your development or API team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+  - name: Admin
+    description: Secured Admin-only calls
+  - name: Authenticated User
+    description: Operations available only to authenticated users
+  - name: Public
+    description: Operations available only all users
+paths:
+  /api/v1/category/list:
+    get:
+      tags:
+        - Category
+      summary: category list
+      operationId: category item
+      description: |
+        You could find category list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  category:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "61d81a92f4b712d1d61e8db6"
+                        name:
+                          type: string
+                          example: "test category"
+                        created_by:
+                          type: string
+                          example: "sandi"
+                        created_at:
+                          type: string
+                          example: "2022-01-07T10:48:50.997Z"
+                        updated_by:
+                          type: string
+                          example: null
+                        deleted_by:
+                          type: string
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+  /api/v1/event/list:
+    get:
+      tags:
+        - Event
+      summary: event list
+      operationId: event item
+      description: |
+        You could find category list with this
+      produces:
+        - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  category:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "61d81a92f4b712d1d61e8db6"
+                        name:
+                          type: string
+                          example: "test category"
+                        created_by:
+                          type: string
+                          example: "sandi"
+                        created_at:
+                          type: string
+                          example: "2022-01-07T10:48:50.997Z"
+                        updated_by:
+                          type: string
+                          example: null
+                        deleted_by:
+                          type: string
+                          example: null
+              message:
+                type: string
+                example: success
+              success:
+                type: boolean
+        400:
+          description: bad url 
+          schema:
+            type: object
+            properties:
+              message:
+                type: integer
+                example: "Not Found"
+    post:
+      tags:
+        - Admin
+      summary: adds an inventory item
+      operationId: addInventory
+      description: Adds an item to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: inventoryItem
+          description: Inventory item to add
+          schema:
+            $ref: "#/definitions/Item"
+      responses:
+        201:
+          description: item created
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
+        400:
+          description: invalid input, object invalid
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
+        409:
+          description: ---
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/Item"
+  /items/{item_name}:
+    get:
+      tags:
+        - Public
+      summary: item list
+      operationId: list item
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available item
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: item_id
+          type: string
+          required: true
+          description: item name user to get
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
+
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
+  /shoppingcarts:
+    get:
+      tags:
+        - Authenticated User
+      summary: shopping cart list
+      operationId: shopping cart item
+      description: |
+        By passing in the appropriate options, you can get items in shopping cart
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          description: pass an required search string for looking up item in shopping cart
+          required: true
+          type: string
+      responses:
+        200:
+          description: ok results matching criteria
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+        400:
+          description: bad input parameter
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+    post:
+      tags:
+        - Authenticated User
+      summary: adds an item to shopping cart
+      operationId: addItemToShoppingCart
+      description: Adds an item to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              item_id:
+                type: integer
+                format: uint32
+              quantity:
+                type: integer
+                format: uint32
+      responses:
+        201:
+          description: item created
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+        400:
+          description: invalid input, object invalid
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+        409:
+          description: an existing item already exists
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+    delete:
+      tags:
+        - Authenticated User
+      summary: delete an item from shopping cart
+      operationId: deleteItemFromShoppingCart
+      description: delete an item from the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item_id
+          description: Inventory item to add
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                item_id:
+                  type: integer
+                  format: uint32
+      responses:
+        201:
+          description: item deleted
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+        400:
+          description: invalid input, object invalid
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+        409:
+          description: item not exist
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/shopping_cart"
+  /shoppingcarts/checkout:
+    post:
+      tags:
+        - Authenticated User
+      summary: adds an order
+      operationId: add an order
+      description: Adds an order to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              payment_service_id:
+                type: integer
+              address_id:
+                type: integer
+              courier_id:
+                type: integer
+      responses:
+        201:
+          description: order created
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+        400:
+          description: invalid input, object invalid
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+  /orders/{order_id}:
+    get:
+      tags:
+        - Authenticated User
+      summary: shopping cart list
+      operationId: order item
+      description: By passing in the appropriate options, you can get items in shopping cart
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: order_id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
+  /orders:
+    get:
+      tags:
+        - Authenticated User
+      summary: shopping cart list
+      operationId: order item
+      description: By passing in the appropriate options, you can get items in shopping cart
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          description: pass an required search string for looking up ite  in shopping cart
+          required: true
+          type: string
+        - in: query
+          name: order_id
+          description: pass an order_id
+          required: false
+          type: integer
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/order"
+    post:
+      tags:
+        - Authenticated User
+      summary: adds an order
+      operationId: add an order
+      description: Adds an order to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: item
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              payment_service_id:
+                type: integer
+              address_id:
+                type: integer
+              courier_id:
+                type: integer
+              order_item:
+                type: array
+                items:
+                  $ref: "#/definitions/Item"
+      responses:
+        201:
+          description: order created
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+        400:
+          description: invalid input, object invalid
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+    delete:
+      tags:
+        - Authenticated User
+      summary: delete order item
+      operationId: delete order
+      description: delete an order from the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: token
+          required: true
+          type: string
+        - in: body
+          name: order_id
+          description: Inventory item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              order_id:
+                type: integer
+                example: 0
+      responses:
+        201:
+          description: order deleted
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+        400:
+          description: invalid input, object invalid
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+        409:
+          description: order not exist
+          schema:
+            $ref: "#/definitions/Response"
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: "#/definitions/order"
+              payment:
+                type: object
+                $ref: "#/definitions/Payment"
+  /register:
+    post:
+      tags:
+        - Public
+      summary: register user account
+      operationId: register user account
+      description: register user account to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: register user
+          description: register user account
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterUser"
+      responses:
+        201:
+          description: account created
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+  /login:
+    post:
+      tags:
+        - Public
+      summary: login user account
+      operationId: login user account
+      description: login user account to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user login
+          description: login user account
+          required: true
+          schema:
+            $ref: "#/definitions/UserLogin"
+      responses:
+        200:
+          description: login access granted
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                $ref: "#/definitions/CustomerInfo"
+        400:
+          description: incorrect username/password
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: object
+                $ref: "#/definitions/CustomerInfo"
+  /payments:
+    get:
+      tags:
+        - Authenticated User
+      summary: payment list
+      operationId: payment item
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available payment
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: query
+          name: payment_id
+          description: pass an optional search string for looking up item
+          required: false
+          type: string
+        - in: query
+          name: status
+          description: status
+          type: integer
+          format: uint32
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Payment"
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Payment"
+  /payments/{payment_id}:
+    get:
+      tags:
+        - Authenticated User
+      summary: payment list
+      operationId: payment item
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available payment
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: path
+          name: payment_id
+          description: pass an optional search integer for looking up payment
+          required: true
+          type: integer
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Payment"
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Payment"
+  /courier:
+    get:
+      tags:
+        - Authenticated User
+      summary: courier list
+      operationId: courier courier
+      description: |
+        By passing in the appropriate options, you can search for
+        certain available courier
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          required: true
+          type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Courier"
+        400:
+          description: bad input parameter
+  /address:
+    get:
+      tags:
+        - Authenticated User
+      summary: get address
+      operationId: get address
+      # description: |
+      #   By passing in the appropriate options, you can search for
+      #   certain available item
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: query
+          name: address_id
+          description: pass an optional search string for looking up address
+          required: false
+          type: integer
+        - in: query
+          name: name
+          description: pass an optional search string for looking up address
+          required: false
+          type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Address"
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Address"
+    post:
+      tags:
+        - Authenticated User
+      summary: adds an address item
+      operationId: addaddress
+      description: Adds an address to the system
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: authorization token
+          required: true
+          type: string
+        - in: body
+          name: addressItem
+          description: address item to add
+          required: true
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+              name:
+                type: string
+      responses:
+        201:
+          description: address created
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                $ref: "#/definitions/Address"
+        400:
+          description: invalid input, object invalid
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                $ref: "#/definitions/Address"
+        409:
+          description: an existing address already exists
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                $ref: "#/definitions/Address"
+  /address/{address_id}:
+    get:
+      tags:
+        - Authenticated User
+      summary: get address
+      operationId: get address
+      # description: |
+      #   By passing in the appropriate options, you can search for
+      #   certain available item
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          required: true
+          type: string
+        - in: path
+          name: address_id
+          description: pass an optional search string for looking up address
+          required: true
+          type: integer
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Address"
+        400:
+          description: bad input parameter
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Address"
+definitions:
+  Item:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: uint32
+        example: 79
+      name:
+        type: string
+        example: Widget Adapter
+      description:
+        type: string
+        example: "ini adalah buku budi"
+      category:
+        type: string
+      price:
+        type: integer
+        format: uint32
+  shopping_cart:
+    type: array
+    items:
+      $ref: "#/definitions/Item"
+  order:
+    type: object
+    properties:
+      order_id:
+        type: integer
+        example: 1
+      courier:
+        type: object
+        properties:
+          company_name:
+            type: string
+            example: "JNE"
+      order_item:
+        type: array
+        items:
+          $ref: "#/definitions/Item"
+      total_amount:
+        type: integer
+      address:
+        type: string
+      payment_id:
+        type: string
+      payment:
+        type: object
+        $ref: "#/definitions/Payment"
+  RegisterUser:
+    type: object
+    properties:
+      username:
+        type: string
+      nama:
+        type: string
+      email:
+        type: string
+        example: "email@email.com"
+      phone_number:
+        type: string
+        example: "+628999"
+      password:
+        type: string
+        example: "password123"
+  UserLogin:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+        example: "password123"
+  Payment:
+    type: object
+    properties:
+      payment_id:
+        type: integer
+      transfer_code:
+        type: string
+      order_id:
+        type: integer
+      customer_id:
+        type: integer
+      status:
+        type: string
+      total_amount:
+        type: integer
+  Courier:
+    type: object
+    properties:
+      courier_id:
+        type: integer
+      company_name:
+        type: string
+  Address:
+    type: object
+    properties:
+      address_id:
+        type: string
+      name:
+        type: string
+      address:
+        type: string
+  Response:
+    type: object
+    properties:
+      code:
+        type: integer
+      status:
+        type: string
+      message:
+        type: string
+  CustomerInfo:
+    type: object
+    properties:
+      customer_id:
+        type: integer
+      username:
+        type: string
+      email:
+        type: string
+      no_hp:
+        type: string
+      token:
+        type: string
+  order_item:
+    type: object
+    properties:
+      order_item_id:
+        type: integer
+      order_id:
+        type: integer
+      item_id:
+        type: integer
+      item:
+        type: object
+        $ref: "#/definitions/Item"
+      quantity:
+        type: integer
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /a4443/retail_store/1.2
+schemes:
+  - https
